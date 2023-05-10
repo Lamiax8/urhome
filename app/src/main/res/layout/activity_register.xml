@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".registerActivity">
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -64,16 +61,17 @@
                     android:textSize="18sp"
                     android:layout_marginTop="30dp"
                     app:cornerRadius = "30dp"/>
+
                 <TextView
+                    android:id="@+id/loginRedirectText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/loginRedirectText"
-                    android:text="Already an user? Login"
                     android:layout_gravity="center"
-                    android:padding="8dp"
-                    android:textSize="18sp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/brown"/>
+                    android:padding="8dp"
+                    android:text="Already an user? Login"
+                    android:textColor="@color/bb"
+                    android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
