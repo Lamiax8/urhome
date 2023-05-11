@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         /*Database database = new Database(MainActivity.this);
-        apart apartMod = new apart(-1, "Sunset", 300 ,"RUH" , 2 );
-        boolean b = database.addOne(apartMod);
-        ShowApartOnListView(database);*/
+         /*
+         Database database = new Database(MainActivity.this);
+        ShowApartOnListView(database);
+        */
 
 
         move=findViewById(R.id.btn_move);
