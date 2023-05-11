@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="380dp"
+                android:layout_marginTop="300dp"
                 android:padding="20dp">
                 <EditText
                     android:layout_width="350dp"

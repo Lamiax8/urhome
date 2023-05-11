@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COLUMN_APART_ROOMS = "APART_ROOMS";
     public static final String COLUMN_ID = "ID";
 
-    public Database(Context context) {
+    public Database(@Nullable Context context) {
         super(context, "apart.db", null, 1);
     }
 
@@ -72,7 +74,7 @@ public class Database extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             // loop through cursor results
             do {
-                int AID = cursor.getInt(0); // student ID
+                int AID = cursor.getInt(0);
                 String AName = cursor.getString(1);
                 int APrice = cursor.getInt(2);
                 String ALocation = cursor.getString(3);
