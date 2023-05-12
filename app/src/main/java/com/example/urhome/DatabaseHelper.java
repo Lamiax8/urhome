@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.ArrayAdapter;
+
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -12,9 +14,6 @@ import java.util.List;
 
 public class DatabaseHelper  extends SQLiteOpenHelper{
     public static final String databaseName = "SignLog.db";
-
-
-
 
     public static final String APART_TABLE = "Apart_Table";
     public static final String COLUMN_APART_NAME = "APART_NAME";
@@ -34,7 +33,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase MyDatabase) {
         MyDatabase.execSQL("create Table users(email TEXT primary key, password TEXT)");
-        String createTableStatement = "Create TABLE " + APART_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_APART_NAME + " TEXT, " + COLUMN_APART_PRICE + " INT, " +COLUMN_APART_LOCATION + " TEXT, " + COLUMN_APART_ROOMS + " INT)" ;
+        String createTableStatement = "Create TABLE " + APART_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_APART_NAME + " TEXT, " + COLUMN_APART_PRICE + " INT, " +COLUMN_APART_LOCATION + " TEXT, " + COLUMN_APART_ROOMS + " INT) " ;
         MyDatabase.execSQL(createTableStatement);
     }
     @Override
@@ -131,9 +130,6 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         db.close();
         return returnList;
     }
-
-
-
 
 
 

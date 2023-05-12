@@ -8,6 +8,7 @@ public class apart {
     private int price;
 
 
+
     private String location;
 
     private int rooms;
@@ -63,6 +64,7 @@ public class apart {
     public void setRooms(int rooms) {
         this.rooms = rooms;
     }
+
 
     @Override
     public String toString() {
