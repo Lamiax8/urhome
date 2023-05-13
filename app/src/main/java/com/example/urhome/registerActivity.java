@@ -30,8 +30,16 @@ DatabaseHelper databaseHelper;
                 String email = binding.signupEmail.getText().toString();
                 String password = binding.signupPassword.getText().toString();
                 String confirmPassword = binding.signupConfirm.getText().toString();
+
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
                 if(email.equals("")||password.equals("")||confirmPassword.equals(""))
                     Toast.makeText(registerActivity.this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
+
+                if( ! (email.matches(emailPattern)) )
+                    Toast.makeText(registerActivity.this, " invalid email", Toast.LENGTH_SHORT).show();
+
+
                 else{
                     if(password.equals(confirmPassword)){
                         Boolean checkUserEmail = databaseHelper.checkEmail(email);

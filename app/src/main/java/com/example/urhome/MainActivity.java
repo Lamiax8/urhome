@@ -1,5 +1,6 @@
 package com.example.urhome;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -8,6 +9,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         ShowApartOnListView(database);
 */
-
         move=findViewById(R.id.btn_move);
        logout=findViewById(R.id.logout);
 
@@ -47,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intentL);
             }
         });
-
-
 
 
        logout.setOnClickListener(new View.OnClickListener() {

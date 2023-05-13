@@ -26,8 +26,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = binding.loginEmail.getText().toString();
                 String password = binding.loginPassword.getText().toString();
+                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
                 if(email.equals("")||password.equals(""))
                     Toast.makeText(LoginActivity.this, "All fields are mandatory", Toast.LENGTH_SHORT).show();
+
+                if( ! (email.matches(emailPattern)) )
+                    Toast.makeText(LoginActivity.this, " invalid email", Toast.LENGTH_SHORT).show();
                 else{
                     Boolean checkCredentials = databaseHelper.checkEmailPassword(email, password);
                     if(checkCredentials == true){

@@ -105,15 +105,10 @@ public class AddDelete extends AppCompatActivity {
     }
 
     private void ShowApartOnListView(DatabaseHelper database) {
-        apartArrayAdapter = new ArrayAdapter<apart>(AddDelete.this, android.R.layout.simple_list_item_1, database.getEveryone());
+        apartArrayAdapter = new ArrayAdapter<>(AddDelete.this, android.R.layout.simple_list_item_1, database.getEveryone());
         lv_ap.setAdapter(apartArrayAdapter);
     }
 
 
-    /*
-    private void clear(DatabaseHelper database) {
-        apartArrayAdapter = new ArrayAdapter<apart>(AddDelete.this, android.R.layout.simple_list_item_1, database.cc());
-        lv_ap.setAdapter(apartArrayAdapter);
-    }
-     */
+
 }
