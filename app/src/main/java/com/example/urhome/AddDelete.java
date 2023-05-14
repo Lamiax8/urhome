@@ -57,37 +57,50 @@ public class AddDelete extends AppCompatActivity {
 
 
         ap_add.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // create model
-                apart apartMod;
-                try {
-                    apartMod = new apart(-1, ap_name.getText().toString(), Integer.parseInt(ap_price.getText().toString()) ,ap_location.getText().toString() , Integer.parseInt(ap_rooms.getText().toString()));
-                    Toast.makeText(AddDelete.this, apartMod.toString(), Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(AddDelete.this, "Enter Valid input", Toast.LENGTH_SHORT).show();
-                    apartMod = new apart(-1, "ERROR", 0 ,"Error" ,0);
-                }
+                                       @Override
+                                       public void onClick(View v) {
+                                           // create model
+                                           apart apartMod = null;
 
-                DatabaseHelper database = new DatabaseHelper(AddDelete.this);
-                boolean b = database.addOne(apartMod);
-                String s;
-                if ( b ) {
-                    s = "ADDED SUCCESSFULLY";
-                } else {
-                    s = "ADD FAILED";
-                }
-                Toast.makeText(AddDelete.this, s, Toast.LENGTH_SHORT).show();
+                                           // create model
 
-                ShowApartOnListView(database);
+                                           String ApName = ap_name.getText().toString();
+                                           String ApPrice = ap_price.getText().toString();
+                                           String ApLocation = ap_location.getText().toString();
+                                           String ApRooms = ap_rooms.getText().toString();
 
-                database = new DatabaseHelper(AddDelete.this);
-                ShowApartOnListView(database);
+                                           if (ApName.equals("") || ApPrice.equals("") || ApLocation.equals("") || ApRooms.equals("")) {
 
-            }
-        });
+                                               Toast.makeText(AddDelete.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
 
-        lv_ap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                           } else {
+                                               apartMod = new apart(-1, ap_name.getText().toString(), Integer.parseInt(ap_price.getText().toString()), ap_location.getText().toString(), Integer.parseInt(ap_rooms.getText().toString()));
+                                               Toast.makeText(AddDelete.this, apartMod.toString(), Toast.LENGTH_SHORT).show();
+
+
+                                               DatabaseHelper database = new DatabaseHelper(AddDelete.this);
+                                               boolean b = database.addOne(apartMod);
+                                               String s;
+                                               if (b) {
+                                                   s = "ADDED SUCCESSFULLY";
+
+                                               } else {
+                                                   s = "ADD FAILED";
+                                               }
+                                               Toast.makeText(AddDelete.this, s, Toast.LENGTH_SHORT).show();
+                                           }
+
+                                           ShowApartOnListView(database);
+
+                                           database = new DatabaseHelper(AddDelete.this);
+                                           ShowApartOnListView(database);
+
+                                       }
+
+                                   }
+                );
+
+                        lv_ap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 apart ClickedApart = (apart) adapterView.getItemAtPosition(i);
