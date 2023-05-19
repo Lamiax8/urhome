@@ -80,9 +80,9 @@ public class apart implements Serializable {
     @Override
     public String toString() {
         if (id == -1) {
-            return "Apartment Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms +  ", Rent: " + rentEmail;
+            return "Apartment Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms +  ", Tenant: " + rentEmail;
         } else {
-            return "ApartmentID: " + id + ",   Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms + ", Rent: " + rentEmail ;
+            return "ApartmentID: " + id + ",   Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms + ", Tenant: " + rentEmail ;
         }
     }
 }

@@ -48,11 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*
-        DatabaseHelper database = new DatabaseHelper(MainActivity.this);
-
-        ShowApartOnListView(database);
-*/
 
         move=findViewById(R.id.btn_move);
         logout=findViewById(R.id.logout);
@@ -90,11 +85,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-/*
-    public void ShowApartOnListView(DatabaseHelper database) {
-        apartArrayAdapter = new ArrayAdapter<apart>(MainActivity.this, android.R.layout.simple_list_item_1, database.getEveryone());
-        lv_all.setAdapter(apartArrayAdapter);
-    }
-*/
+
 
 }
