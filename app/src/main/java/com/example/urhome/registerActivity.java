@@ -48,7 +48,10 @@ DatabaseHelper databaseHelper;
                             if(insert == true){
                                 Toast.makeText(registerActivity.this, "Signup Successfully!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                                MyApplication.getInstance().saveUserEmail(email);
+
                                 startActivity(intent);
+
                             }else{
                                 Toast.makeText(registerActivity.this, "Signup Failed!", Toast.LENGTH_SHORT).show();
                             }

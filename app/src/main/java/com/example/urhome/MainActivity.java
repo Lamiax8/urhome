@@ -2,17 +2,22 @@ package com.example.urhome;
 import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +25,21 @@ public class MainActivity extends AppCompatActivity {
 
   Button move;
   Button logout;
-
-
+  ArrayAdapter<apart> arrayAdapter;
+  List<apart> apartList;
+ int clickedIndex = -1;
 /*
     ListView lv_all;
     ArrayAdapter apartArrayAdapter;
 */
+
+    private final ActivityResultLauncher<Intent> viewApartLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if(result.getData() != null){
+                    apartList.get(clickedIndex).setRentEmail(result.getData().getStringExtra("result"));
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            });
 
 
     @Override
@@ -39,29 +53,38 @@ public class MainActivity extends AppCompatActivity {
 
         ShowApartOnListView(database);
 */
+
         move=findViewById(R.id.btn_move);
-       logout=findViewById(R.id.logout);
+        logout=findViewById(R.id.logout);
+        apartList = new DatabaseHelper(this).getEveryoneWithoutRented();
+         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,apartList);
+        ListView listView = findViewById(R.id.apart_list_view);
+        listView.setAdapter(arrayAdapter);
 
-
-
-        move.setOnClickListener(new View.OnClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intentL = new Intent( MainActivity.this, AddDelete.class);
-                startActivity(intentL);
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, ViewApartActivity.class);
+                intent.putExtra("apart", (Serializable) apartList.get(i));
+                 clickedIndex = i;
+                 viewApartLauncher.launch(intent);
             }
         });
 
 
-       logout.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        move.setOnClickListener(v -> {
+            Intent intentL = new Intent( MainActivity.this, AddDelete.class);
+            startActivity(intentL);
+        });
 
-               Intent intentL = new Intent( MainActivity.this, LoginActivity.class);
-               startActivity(intentL);
-               finish();
-               Toast.makeText(MainActivity.this, " Successfully log out " , Toast.LENGTH_SHORT).show();
-           }
+
+       logout.setOnClickListener(v -> {
+
+           Intent intentL = new Intent( MainActivity.this, LoginActivity.class);
+           startActivity(intentL);
+           MyApplication.getInstance().removeUserEmail();
+           finish();
+           Toast.makeText(MainActivity.this, " Successfully log out " , Toast.LENGTH_SHORT).show();
        });
 
 

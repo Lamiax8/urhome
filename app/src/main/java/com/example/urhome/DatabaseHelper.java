@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.ArrayAdapter;
 
 import androidx.annotation.Nullable;
 
@@ -19,8 +18,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
     public static final String COLUMN_APART_NAME = "APART_NAME";
     public static final String COLUMN_APART_PRICE = "APART_PRICE";
     public static final String COLUMN_APART_LOCATION = "APART_LOCATION";
-
     public static final String COLUMN_APART_ROOMS = "APART_ROOMS";
+    public static final String COLUMN_APART_RENT_EMAIL = "RENT_EMAIL";
     public static final String COLUMN_ID = "ID";
 
 
@@ -33,7 +32,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase MyDatabase) {
         MyDatabase.execSQL("create Table users(email TEXT primary key, password TEXT)");
-        String createTableStatement = "Create TABLE " + APART_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_APART_NAME + " TEXT, " + COLUMN_APART_PRICE + " INT, " +COLUMN_APART_LOCATION + " TEXT, " + COLUMN_APART_ROOMS + " INT) " ;
+        String createTableStatement = "Create TABLE " + APART_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_APART_NAME + " TEXT, " +
+                " " + COLUMN_APART_PRICE + " INT, " +COLUMN_APART_LOCATION + " TEXT, " + COLUMN_APART_ROOMS + " INT, " + COLUMN_APART_RENT_EMAIL + " TEXT " + ")";
         MyDatabase.execSQL(createTableStatement);
     }
     @Override
@@ -52,6 +52,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
             return true;
         }
     }
+
+
     public Boolean checkEmail(String email){
         SQLiteDatabase MyDatabase = this.getWritableDatabase();
         Cursor cursor = MyDatabase.rawQuery("Select * from users where email = ?", new String[]{email});
@@ -82,6 +84,7 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         cv.put(COLUMN_APART_PRICE, apartMod.getPrice());
         cv.put(COLUMN_APART_LOCATION, apartMod.getLocation());
         cv.put(COLUMN_APART_ROOMS, apartMod.getRooms());
+        cv.put(COLUMN_APART_RENT_EMAIL,apartMod.getRentEmail());
 
         long insert = db.insert(APART_TABLE, null, cv);
         if (insert == -1) {
@@ -118,8 +121,8 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
                 int APrice = cursor.getInt(2);
                 String ALocation = cursor.getString(3);
                 int ARooms = cursor.getInt(4);
-
-                apart newApart = new apart(AID, AName, APrice ,ALocation,ARooms);
+                String rentEmail = cursor.getString(5);
+                apart newApart = new apart(AID, AName, APrice ,ALocation,ARooms,rentEmail);
                 returnList.add(newApart);
             } while (cursor.moveToNext());
         } else {
@@ -130,6 +133,55 @@ public class DatabaseHelper  extends SQLiteOpenHelper{
         db.close();
         return returnList;
     }
+
+    public List<apart> getEveryoneWithoutRented() {
+        List<apart> returnList = new ArrayList<>();
+        // get data from database
+        String queryString = "Select * from " + APART_TABLE + " WHERE " + COLUMN_APART_RENT_EMAIL + " = ? " + "OR " + COLUMN_APART_RENT_EMAIL + " = ? "  ;
+        String[] selectionArgs = { MyApplication.getInstance().getUserEmail(), "NOT RENTED YET"};
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, selectionArgs);
+        if (cursor.moveToFirst()) {
+            // loop through cursor results
+            do {
+                int AID = cursor.getInt(0);
+                String AName = cursor.getString(1);
+                int APrice = cursor.getInt(2);
+                String ALocation = cursor.getString(3);
+                int ARooms = cursor.getInt(4);
+                String rentEmail = cursor.getString(5);
+                apart newApart = new apart(AID, AName, APrice ,ALocation,ARooms,rentEmail);
+                returnList.add(newApart);
+            } while (cursor.moveToNext());
+        } else {
+            // nothing happens. no one is added.
+        }
+        //close
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+
+
+
+    public boolean updateApartment(int id, apart apart){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_APART_NAME, apart.getName());
+        cv.put(COLUMN_APART_PRICE, apart.getPrice());
+        cv.put(COLUMN_APART_LOCATION, apart.getLocation());
+        cv.put(COLUMN_APART_ROOMS, apart.getRooms());
+        cv.put(COLUMN_APART_RENT_EMAIL,apart.getRentEmail());
+        long insert = db.update(APART_TABLE, cv,  COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        if (insert == -1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 

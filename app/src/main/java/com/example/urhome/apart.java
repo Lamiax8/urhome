@@ -1,7 +1,9 @@
 package com.example.urhome;
 
 
-public class apart {
+import java.io.Serializable;
+
+public class apart implements Serializable {
     private int id;
     private String name;
 
@@ -12,16 +14,18 @@ public class apart {
     private String location;
 
     private int rooms;
+    private String rentEmail = "NOT RENTED YET";
 
     public apart() {
     }
 
-    public apart(int id, String name, int price, String location, int rooms) {
+    public apart(int id, String name, int price, String location, int rooms, String rentEmail) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.location = location;
         this.rooms = rooms;
+        this.rentEmail = rentEmail;
     }
 
     public int getId() {
@@ -36,6 +40,13 @@ public class apart {
         return price;
     }
 
+    public String getRentEmail() {
+        return rentEmail;
+    }
+
+    public void setRentEmail(String rentEmail) {
+        this.rentEmail = rentEmail;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -69,9 +80,9 @@ public class apart {
     @Override
     public String toString() {
         if (id == -1) {
-            return "Apartment Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms;
+            return "Apartment Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms +  ", Rent: " + rentEmail;
         } else {
-            return "ApartmentID: " + id + ",   Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms;
+            return "ApartmentID: " + id + ",   Name: " + name + ",   Price: " + price + ",   Location: " + location + ",   Rooms: " + rooms + ", Rent: " + rentEmail ;
         }
     }
 }

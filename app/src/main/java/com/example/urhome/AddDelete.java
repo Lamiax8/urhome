@@ -74,7 +74,7 @@ public class AddDelete extends AppCompatActivity {
                                                Toast.makeText(AddDelete.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
 
                                            } else {
-                                               apartMod = new apart(-1, ap_name.getText().toString(), Integer.parseInt(ap_price.getText().toString()), ap_location.getText().toString(), Integer.parseInt(ap_rooms.getText().toString()));
+                                               apartMod = new apart(-1, ap_name.getText().toString(), Integer.parseInt(ap_price.getText().toString()), ap_location.getText().toString(), Integer.parseInt(ap_rooms.getText().toString()),"NOT RENTED YET");
                                                Toast.makeText(AddDelete.this, apartMod.toString(), Toast.LENGTH_SHORT).show();
 
 
